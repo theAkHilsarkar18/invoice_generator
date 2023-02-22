@@ -27,23 +27,31 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
     // InvoiceModle invoice = ModalRoute.of(context)?.settings.arguments as InvoiceModle;
 
     return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
+      child: RepaintBoundary(
+        key: globalkey,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: false,
+            leading: Icon(Icons.all_inclusive,color: Colors.black,size: 30),
+            title: Text("Bridal Studio",
+                style: GoogleFonts.philosopher(
+                    color: Colors.black,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w500)),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(onTap: () {
+                  imageGenerator();
+                },child: Icon(Icons.save,color: Colors.black)),
+              ),
+            ],
+          ),
           backgroundColor: Colors.white,
-          elevation: 0,
-          centerTitle: false,
-          leading: Icon(Icons.all_inclusive,color: Colors.black,size: 30),
-          title: Text("Bridal Studio",
-              style: GoogleFonts.philosopher(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500)),
-        ),
-        backgroundColor: Colors.white,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: RepaintBoundary(
-            key: globalkey,
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,9 +196,6 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text("19-03-2023",style: GoogleFonts.ptMono(fontWeight: FontWeight.w600,fontSize: 10),),
                   ),
-                  // ElevatedButton(onPressed: () {
-                  //   imageGenerator();
-                  // }, child: Text("Create"))
                 ],
               ),
             ),

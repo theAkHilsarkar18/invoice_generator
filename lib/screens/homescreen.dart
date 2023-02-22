@@ -10,15 +10,18 @@ class Homescreen extends StatefulWidget {
 }
 //...............................................................................................................
 
-TextEditingController txtProduct = TextEditingController(text: "Meggi");
-TextEditingController txtDiscount = TextEditingController(text: "10%");
-TextEditingController txtQty = TextEditingController(text: "2");
-TextEditingController txtAmount = TextEditingController(text: "22");
-TextEditingController txtPrice = TextEditingController(text: "11");
+TextEditingController txtProduct = TextEditingController();
+TextEditingController txtDiscount = TextEditingController();
+TextEditingController txtQty = TextEditingController();
+TextEditingController txtAmount = TextEditingController();
+TextEditingController txtPrice = TextEditingController();
 
+List productList = [];
 
-
-
+List productName = [];
+List productQty = [];
+List productPrice = [];
+List productIndex = [];
 //...............................................................................................................
 
 class _HomescreenState extends State<Homescreen> {
@@ -30,136 +33,274 @@ class _HomescreenState extends State<Homescreen> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          centerTitle: false,
-          leading: Icon(Icons.all_inclusive,color: Colors.black,size: 30),
+          centerTitle: true,
+          leading: Icon(Icons.all_inclusive, color: Colors.black, size: 30),
           title: Text("Bridal Studio",
               style: GoogleFonts.philosopher(
                   color: Colors.black,
                   fontSize: 25,
                   fontWeight: FontWeight.w500)),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(onTap: () {
+                setState(() {
+                  productName.clear();
+                  productQty.clear();
+                  productPrice.clear();
+                  productIndex.clear();
+                });
+              },child: Icon(Icons.refresh, color: Colors.black)),
+            )
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: double.infinity,
-            child: Column(
-              children: [
-
-                Row(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: 100,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Name",
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 5,),
-                    Expanded(
-                      child: Container(
-                        width: 100,
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "Phone",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+          child: Stack(
+            children: [
+              Container(
+                height: double.infinity,
+                child: ListView.builder(
+                  itemCount: productName.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(onTap: () {
+                      setState(() {
+                        productIndex.add(index);
+                      });
+                    },child: productBox(index,productName[index],productQty[index],productPrice[index]));
+                  },
                 ),
-                Spacer(),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black,width: 1.5),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      ElevatedButton(onPressed: () {
-                        showDialog(context: context, builder: (context) {
-                          return AlertDialog(
-                            content: Container(
-                              height: 350,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextField(
-                                    controller: txtProduct,
-                                    decoration: InputDecoration(
-                                      hintText: "Product",
-                                    ),
+                      InkWell(
+                          onTap: () {
+                            setState(() {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                    content: Container(
+                                  height: 300,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      TextFormField(
+                                        style: TextStyle(letterSpacing: 2),
+                                        controller: txtProduct,
+                                        decoration: InputDecoration(
+                                          hintText: "Shervani",
+                                          labelText: "Product Name",
+                                          labelStyle:
+                                              TextStyle(color: Colors.black),
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.black,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        controller: txtQty,
+                                        style: TextStyle(letterSpacing: 2),
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          hintText: "1",
+                                          labelText: "Product Qty",
+                                          labelStyle:
+                                              TextStyle(color: Colors.black),
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.black,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        style: TextStyle(letterSpacing: 2),
+                                        controller: txtPrice,
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          hintText: "12000",
+                                          labelText: "Product Price",
+                                          labelStyle:
+                                              TextStyle(color: Colors.black),
+                                          border: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Colors.black,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 2),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                        ),
+                                      ),
+
+                                      InkWell(onTap: () {
+                                       setState(() {
+                                         productName.add(txtProduct.text);
+                                         productQty.add(txtQty.text);
+                                         productPrice.add(txtPrice.text);
+                                         Navigator.pop(context);
+                                       });
+                                      },child: customButtonForAddProduct(),),
+                                    ],
                                   ),
+                                ),
+                                ),
+                              );
+                            });
+                          },
+                          child: customButtonForAddProduct()),
 
-                                  TextField(
-                                    controller: txtDiscount,
-                                    decoration: InputDecoration(
-                                      hintText: "Tax",
-                                    ),
-                                  ),
 
-                                  TextField(
-                                    controller: txtQty,
-                                    decoration: InputDecoration(
-                                      hintText: "Qty",
-                                    ),
-                                  ),
-
-                                  TextField(
-                                    controller: txtPrice,
-                                    decoration: InputDecoration(
-                                      hintText: "Price",
-                                    ),
-                                  ),
-
-                                  TextField(
-                                    controller: txtAmount,
-                                    decoration: InputDecoration(
-                                      hintText: "Amount",
-                                    ),
-                                  ),
-
-                                  ElevatedButton(onPressed: () {
-
-                                  }, child: Text("Add"),),
-                                ],
-                              ),
-                            ),
-                          );
-                        },);
-                      }, child: Text("Add"),),
-                      ElevatedButton(
-                        onPressed: () {
-                          InvoiceModle invoice = InvoiceModle(
-                              productName: txtProduct.text,
-                              productDiscount: txtDiscount.text,
-                              productQty: txtQty.text,
-                              productPrice: txtPrice.text,
-                          productAmount: txtAmount.text,
-                          );
-                          Navigator.pushNamed(context, 'invoice', arguments: invoice);
-                        },
-                        child: Text("Generate"),
-                      ),
+                      customButtonForAddInvoiceGenerate(),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget dataEntry(String filedName, String cont) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "$filedName",
+  Widget productBox(int i,String pname,String q,String price) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PopupMenuButton(
+        offset: Offset(20,20),
+        shape: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.5)),
+
+        itemBuilder: (context) {
+          return [
+            PopupMenuItem(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Edit",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.edit)]),),
+
+            PopupMenuItem(onTap: () {
+              setState(() {
+
+                productName.removeAt(i);
+                productQty.removeAt(i);
+                productPrice.removeAt(i);
+
+              });
+            },child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Delete",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.delete)]),),
+          ];
+        },
+        child: Container(
+          padding: EdgeInsets.all(5),
+          height: 80,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 1.5),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text("No.", style: GoogleFonts.ptMono()),
+                  Text("Product Name (Oty)", style: GoogleFonts.ptMono()),
+                  Text("Price", style: GoogleFonts.ptMono()),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text("$i", style: GoogleFonts.ptMono()),
+                  Text("${pname} (${q})", style: GoogleFonts.ptMono()),
+                  Text("${price}", style: GoogleFonts.ptMono()),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget customButtonForAddProduct() {
+    return Container(
+      height: 40,
+      width: 130,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(40),
+      ),
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Product",
+              style:
+                  GoogleFonts.outfit(color: Colors.white, letterSpacing: 1)),
+          SizedBox(
+            width: 5,
+          ),
+          Icon(
+            Icons.add,
+            color: Colors.white,
+            size: 18,
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget customButtonForAddInvoiceGenerate() {
+    return Container(
+      height: 40,
+      width: 130,
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(40),
+      ),
+      alignment: Alignment.center,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("Invoice",
+              style: GoogleFonts.outfit(color: Colors.white, letterSpacing: 1)),
+          SizedBox(
+            width: 5,
+          ),
+          Icon(
+            Icons.download,
+            color: Colors.white,
+            size: 18,
+          )
+        ],
       ),
     );
   }
