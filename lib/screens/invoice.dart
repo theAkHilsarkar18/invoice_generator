@@ -31,23 +31,15 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: Text("Groom & Bride Studio",
+          centerTitle: false,
+          leading: Icon(Icons.all_inclusive,color: Colors.black,size: 30),
+          title: Text("Bridal Studio",
               style: GoogleFonts.philosopher(
                   color: Colors.black,
                   fontSize: 25,
                   fontWeight: FontWeight.w500)),
-          actions: [
-            Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("19-03-2023",style: GoogleFonts.ptMono(color:Colors.black)),
-                ),
-                Text("9:23 pm",style: GoogleFonts.ptMono(color: Colors.black)),
-              ],
-            ),
-          ],
         ),
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: RepaintBoundary(
@@ -80,20 +72,20 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                       //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          child: Text("Product",style: GoogleFonts.outfit()),
-                          width: 120,
+                          child: Text("Product",style: GoogleFonts.outfit(fontSize: 12,letterSpacing: 1)),
+                          width: 90,
                           color: Colors.grey,
                           alignment: Alignment.center,
                             padding: EdgeInsets.all(3)
                         ),
                         SizedBox(width: 5,),
-                        Container(child: Text("Price",style: GoogleFonts.outfit()),width: 80,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        Container(child: Text("Price",style: GoogleFonts.outfit(letterSpacing: 1,fontSize: 12)),width: 50,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("Qty",style: GoogleFonts.outfit()),width: 40,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        Container(child: Text("Qty",style: GoogleFonts.outfit(fontSize: 12,letterSpacing: 1)),width: 40,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("Discount",style: GoogleFonts.outfit()),alignment: Alignment.center,color: Colors.grey,width: 70,padding: EdgeInsets.all(3)),
+                        Container(child: Text("Tax",style: GoogleFonts.outfit(fontSize: 12,letterSpacing: 1)),width: 40,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("Amount",style: GoogleFonts.outfit()),width: 100,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        Container(child: Text("Amount",style: GoogleFonts.outfit(fontSize: 12,letterSpacing: 1)),width: 80,color: Colors.grey,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                       ],
                     ),
                   ),
@@ -104,15 +96,15 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Container(child: Text("Suit & Shervani",style: GoogleFonts.ptMono()), width: 120,alignment: Alignment.center),
+                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("10000",style: GoogleFonts.ptMono()),width: 80,alignment: Alignment.center),
+                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("6",style: GoogleFonts.ptMono()),width: 40,alignment: Alignment.center),
+                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
                         SizedBox(width: 5,),
-                        Container(child: Text("10%",style: GoogleFonts.ptMono()),alignment: Alignment.center,width: 70),
+                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
                         SizedBox(width: 5,),
-                        Container(child: Text("36000",style: GoogleFonts.ptMono()),width: 100,alignment: Alignment.center),
+                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
 
                       ],
                     ),
@@ -123,28 +115,66 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
 
-                        Container(child: Text("Lehnga",style: GoogleFonts.ptMono()), width: 120,alignment: Alignment.center),
+                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("22000",style: GoogleFonts.ptMono()),width: 80,alignment: Alignment.center),
+                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
                         SizedBox(width: 5,),
-                        Container(child: Text("1",style: GoogleFonts.ptMono()),width: 40,alignment: Alignment.center),
+                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
                         SizedBox(width: 5,),
-                        Container(child: Text("10%",style: GoogleFonts.ptMono()),alignment: Alignment.center,width: 70),
+                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
                         SizedBox(width: 5,),
-                        Container(child: Text("20000",style: GoogleFonts.ptMono()),width: 100,alignment: Alignment.center),
+                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        SizedBox(width: 5,),
+                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        SizedBox(width: 5,),
+                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+                        SizedBox(width: 5,),
+                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+                        SizedBox(width: 5,),
+                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        SizedBox(width: 5,),
+                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+                        SizedBox(width: 5,),
+                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+                        SizedBox(width: 5,),
+                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+                        SizedBox(width: 5,),
+                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
 
                       ],
                     ),
                   ),
 
 
-                  Text("----------------------------------------------------------------------------------------------------------------------------"),
+                  Text("--------------------------------------------------------------------------"),
 
                   SizedBox(height: 20,),
 
-                  Container(child: Text("Total Qty : 36",style: TextStyle(fontSize: 15)),color: Colors.grey,padding: EdgeInsets.all(10)),
+                  Container(child: Text("Total Qty : 36",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
-                  Container(child: Text("Total Amount : 58000/-",style: TextStyle(fontSize: 15)),color: Colors.grey,padding: EdgeInsets.all(10)),
+                  Container(child: Text("Total Amount : 58000/-",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
