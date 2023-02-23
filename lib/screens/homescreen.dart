@@ -16,7 +16,7 @@ TextEditingController txtQty = TextEditingController();
 TextEditingController txtAmount = TextEditingController();
 TextEditingController txtPrice = TextEditingController();
 
-List productList = [];
+List<InvoiceModle> productList = [];
 
 List productName = [];
 List productQty = [];
@@ -63,11 +63,7 @@ class _HomescreenState extends State<Homescreen> {
                 child: ListView.builder(
                   itemCount: productName.length,
                   itemBuilder: (context, index) {
-                    return InkWell(onTap: () {
-                      setState(() {
-                        productIndex.add(index);
-                      });
-                    },child: productBox(index,productName[index],productQty[index],productPrice[index]));
+                    return productBox(index,productName[index],productQty[index],productPrice[index]);
                   },
                 ),
               ),
@@ -161,9 +157,15 @@ class _HomescreenState extends State<Homescreen> {
 
                                       InkWell(onTap: () {
                                        setState(() {
-                                         productName.add(txtProduct.text);
-                                         productQty.add(txtQty.text);
-                                         productPrice.add(txtPrice.text);
+                                         // productName.add(txtProduct.text);
+                                         // productQty.add(txtQty.text);
+                                         // productPrice.add(txtPrice.text);
+
+                                         String name = txtProduct.text;
+                                         String q = txtQty.text;
+                                         String price = txtPrice.text;
+                                         InvoiceModle i1 = InvoiceModle(productName: name,productPrice: price,productQty: q);
+                                         productList.add(i1);
                                          Navigator.pop(context);
                                        });
                                       },child: customButtonForAddProduct(),),
@@ -198,7 +200,15 @@ class _HomescreenState extends State<Homescreen> {
 
         itemBuilder: (context) {
           return [
-            PopupMenuItem(child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Edit",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.edit)]),),
+            PopupMenuItem(onTap: () {
+              setState(() {
+
+                txtProduct = TextEditingController(text: "$pname");
+                txtQty = TextEditingController(text: "$q");
+                txtPrice = TextEditingController(text: "$price");
+
+              });
+            },child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Edit",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.edit)]),),
 
             PopupMenuItem(onTap: () {
               setState(() {
