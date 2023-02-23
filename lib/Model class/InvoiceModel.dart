@@ -1,8 +1,8 @@
 
 class InvoiceModle
 {
-  String? productName,productDiscount,productQty,productAmount,productPrice;
+  String? productName,finalQty,finalAmount,productQty,productAmount,productPrice;
 
-  InvoiceModle({this.productName,this.productDiscount,this.productQty,this.productPrice,this.productAmount});
+  InvoiceModle({this.productName,this.productQty,this.productPrice,this.productAmount,this.finalQty,this.finalAmount});
 
 }

@@ -18,10 +18,10 @@ TextEditingController txtPrice = TextEditingController();
 
 List<InvoiceModle> productList = [];
 
-List productName = [];
-List productQty = [];
-List productPrice = [];
-List productIndex = [];
+String? name;
+String? q;
+String? price;
+int fq = 0;
 //...............................................................................................................
 
 class _HomescreenState extends State<Homescreen> {
@@ -45,10 +45,8 @@ class _HomescreenState extends State<Homescreen> {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(onTap: () {
                 setState(() {
-                  productName.clear();
-                  productQty.clear();
-                  productPrice.clear();
-                  productIndex.clear();
+                  productList.clear();
+                  fq = 0;
                 });
               },child: Icon(Icons.refresh, color: Colors.black)),
             )
@@ -61,9 +59,9 @@ class _HomescreenState extends State<Homescreen> {
               Container(
                 height: double.infinity,
                 child: ListView.builder(
-                  itemCount: productName.length,
+                  itemCount: productList.length,
                   itemBuilder: (context, index) {
-                    return productBox(index,productName[index],productQty[index],productPrice[index]);
+                    return productBox(index,productList[index].productName!,productList[index].productQty!,productList[index].productPrice!);
                   },
                 ),
               ),
@@ -90,7 +88,6 @@ class _HomescreenState extends State<Homescreen> {
                                         style: TextStyle(letterSpacing: 2),
                                         controller: txtProduct,
                                         decoration: InputDecoration(
-                                          hintText: "Shervani",
                                           labelText: "Product Name",
                                           labelStyle:
                                               TextStyle(color: Colors.black),
@@ -113,7 +110,6 @@ class _HomescreenState extends State<Homescreen> {
                                         style: TextStyle(letterSpacing: 2),
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          hintText: "1",
                                           labelText: "Product Qty",
                                           labelStyle:
                                               TextStyle(color: Colors.black),
@@ -136,7 +132,6 @@ class _HomescreenState extends State<Homescreen> {
                                         controller: txtPrice,
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          hintText: "12000",
                                           labelText: "Product Price",
                                           labelStyle:
                                               TextStyle(color: Colors.black),
@@ -161,10 +156,15 @@ class _HomescreenState extends State<Homescreen> {
                                          // productQty.add(txtQty.text);
                                          // productPrice.add(txtPrice.text);
 
-                                         String name = txtProduct.text;
-                                         String q = txtQty.text;
-                                         String price = txtPrice.text;
-                                         InvoiceModle i1 = InvoiceModle(productName: name,productPrice: price,productQty: q);
+                                          name = txtProduct.text;
+                                          q = txtQty.text;
+                                          price = txtPrice.text;
+                                          double amt = double.parse(txtPrice.text)+((double.parse(txtPrice.text)*18)/100);
+                                          String amount = amt.toString();
+                                          fq = fq + int.parse(txtQty.text);
+                                          //print(fq);
+                                          int i = 0;
+                                         InvoiceModle i1 = InvoiceModle(productName: name,productPrice: price,productQty: q,productAmount:amount,finalQty: fq.toString(),);
                                          productList.add(i1);
                                          Navigator.pop(context);
                                        });
@@ -179,7 +179,11 @@ class _HomescreenState extends State<Homescreen> {
                           child: customButtonForAddProduct()),
 
 
-                      customButtonForAddInvoiceGenerate(),
+                      InkWell(onTap: () {
+                        setState(() {
+                          Navigator.pushNamed(context, 'invoice',arguments: productList);
+                        });
+                      },child: customButtonForAddInvoiceGenerate()),
                     ],
                   ),
                 ),
@@ -191,6 +195,9 @@ class _HomescreenState extends State<Homescreen> {
     );
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   Widget productBox(int i,String pname,String q,String price) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -201,21 +208,138 @@ class _HomescreenState extends State<Homescreen> {
         itemBuilder: (context) {
           return [
             PopupMenuItem(onTap: () {
+              print("hi");
+             Future.delayed(Duration(seconds: 0),() =>  showDialog(context: context, builder: (context) {
+               return AlertDialog(
+                 content: Column(
+                   mainAxisSize: MainAxisSize.min,
+                   children: [
+                     SizedBox(height: 15,),
+                     TextFormField(
+                       style: TextStyle(letterSpacing: 2),
+                       controller: txtProduct,
+                       decoration: InputDecoration(
+                         hintText: "Shervani",
+                         labelText: "Product Name",
+                         labelStyle:
+                         TextStyle(color: Colors.black),
+                         border: OutlineInputBorder(
+                             borderSide: BorderSide(
+                               color: Colors.black,
+                             ),
+                             borderRadius:
+                             BorderRadius.circular(5)),
+                         focusedBorder: OutlineInputBorder(
+                             borderSide: BorderSide(
+                                 color: Colors.black,
+                                 width: 2),
+                             borderRadius:
+                             BorderRadius.circular(10)),
+                       ),
+                     ),
+                     SizedBox(height: 15,),
+                     TextFormField(
+                       controller: txtQty,
+                       style: TextStyle(letterSpacing: 2),
+                       keyboardType: TextInputType.number,
+                       decoration: InputDecoration(
+                         hintText: "1",
+                         labelText: "Product Qty",
+                         labelStyle:
+                         TextStyle(color: Colors.black),
+                         border: OutlineInputBorder(
+                             borderSide: BorderSide(
+                               color: Colors.black,
+                             ),
+                             borderRadius:
+                             BorderRadius.circular(5)),
+                         focusedBorder: OutlineInputBorder(
+                             borderSide: BorderSide(
+                                 color: Colors.black,
+                                 width: 2),
+                             borderRadius:
+                             BorderRadius.circular(10)),
+                       ),
+                     ),
+                     SizedBox(height: 15,),
+                     TextFormField(
+                       style: TextStyle(letterSpacing: 2),
+                       controller: txtPrice,
+                       keyboardType: TextInputType.number,
+                       decoration: InputDecoration(
+                         hintText: "12000",
+                         labelText: "Product Price",
+                         labelStyle:
+                         TextStyle(color: Colors.black),
+                         border: OutlineInputBorder(
+                             borderSide: BorderSide(
+                               color: Colors.black,
+                             ),
+                             borderRadius:
+                             BorderRadius.circular(5)),
+                         focusedBorder: OutlineInputBorder(
+                             borderSide: BorderSide(
+                                 color: Colors.black,
+                                 width: 2),
+                             borderRadius:
+                             BorderRadius.circular(10)),
+                       ),
+                     ),
+                     SizedBox(height: 30,),
+
+                     InkWell(
+                       onTap: () {
+                         setState(() {
+                           productList[i].productName = txtProduct.text;
+                           productList[i].productQty = txtQty.text;
+                           productList[i].productPrice = txtPrice.text;
+                           Navigator.pop(context);
+                         });
+                       },
+                       child: Container(
+                         height: 40,
+                         width: 130,
+                         decoration: BoxDecoration(
+                           color: Colors.black,
+                           borderRadius: BorderRadius.circular(40),
+                         ),
+                         alignment: Alignment.center,
+                         child: Row(
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             Text("Edit",
+                                 style: GoogleFonts.outfit(color: Colors.white, letterSpacing: 1)),
+                             SizedBox(
+                               width: 5,
+                             ),
+                             Icon(
+                               Icons.download,
+                               color: Colors.white,
+                               size: 18,
+                             )
+                           ],
+                         ),
+                       ),
+                     ),
+
+                   ],
+                 ),
+               );
+             },),);
               setState(() {
 
                 txtProduct = TextEditingController(text: "$pname");
                 txtQty = TextEditingController(text: "$q");
                 txtPrice = TextEditingController(text: "$price");
 
+                print("hiii");
               });
             },child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Edit",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.edit)]),),
 
             PopupMenuItem(onTap: () {
               setState(() {
 
-                productName.removeAt(i);
-                productQty.removeAt(i);
-                productPrice.removeAt(i);
+                productList.removeAt(i);
 
               });
             },child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,children: [Text("Delete",style: GoogleFonts.outfit(letterSpacing: 2),),Icon(Icons.delete)]),),

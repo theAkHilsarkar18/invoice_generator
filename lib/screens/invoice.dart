@@ -24,7 +24,10 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
   final globalkey = new GlobalKey();
 
   Widget build(BuildContext context) {
-    // InvoiceModle invoice = ModalRoute.of(context)?.settings.arguments as InvoiceModle;
+
+    List<InvoiceModle> product = ModalRoute.of(context)!.settings.arguments as List<InvoiceModle>;
+
+
 
     return SafeArea(
       child: RepaintBoundary(
@@ -98,89 +101,17 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                     ),
                   ),
 
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                     // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-
-                      ],
-                    ),
+                  ListView.builder(physics: BouncingScrollPhysics(), shrinkWrap: true,itemBuilder: (context, index) {
+                    return dataEntry(product[index].productName!,product[index].productPrice!,product[index].productQty!,"18",product[index].productAmount!);
+                  },
+                    itemCount: product.length,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-
-                        Container(child: Text("Shervani",style: GoogleFonts.ptMono(fontSize: 10)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("10000",style: GoogleFonts.ptMono(fontSize: 10)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-                        SizedBox(width: 5,),
-                        Container(child: Text("6",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("18%",style: GoogleFonts.ptMono(fontSize: 10)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
-                        SizedBox(width: 5,),
-                        Container(child: Text("36000",style: GoogleFonts.ptMono(fontSize: 10)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
-
-                      ],
-                    ),
-                  ),
-
 
                   Text("--------------------------------------------------------------------------"),
 
                   SizedBox(height: 20,),
 
-                  Container(child: Text("Total Qty : 36",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
+                  Container(child: Text("10",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
                   Container(child: Text("Total Amount : 58000/-",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
@@ -201,6 +132,29 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget dataEntry(String name, String price, String qty, String tax, String amount)
+  {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+
+          Container(child: Text("$name",style: GoogleFonts.ptMono(fontSize: 11)), width: 90,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+          SizedBox(width: 5,),
+          Container(child: Text("$price",style: GoogleFonts.ptMono(fontSize: 11)),width: 50,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+          SizedBox(width: 5,),
+          Container(child: Text("$qty",style: GoogleFonts.ptMono(fontSize: 11)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+          SizedBox(width: 5,),
+          Container(child: Text("$tax%",style: GoogleFonts.ptMono(fontSize: 11)),width: 40,alignment: Alignment.center,padding: EdgeInsets.all(3),),
+          SizedBox(width: 5,),
+          Container(child: Text("$amount",style: GoogleFonts.ptMono(fontSize: 11)),width: 80,alignment: Alignment.center,padding: EdgeInsets.all(3)),
+
+        ],
       ),
     );
   }
