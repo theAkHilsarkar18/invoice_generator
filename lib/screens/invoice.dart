@@ -25,9 +25,9 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
 
   Widget build(BuildContext context) {
 
-    List<InvoiceModle> product = ModalRoute.of(context)!.settings.arguments as List<InvoiceModle>;
+    //List<InvoiceModle> product = ModalRoute.of(context)!.settings.arguments as List<InvoiceModle>;
 
-
+    totalModel tx = ModalRoute.of(context)!.settings.arguments as totalModel;
 
     return SafeArea(
       child: RepaintBoundary(
@@ -102,18 +102,18 @@ class _InvoiceGeneratorState extends State<InvoiceGenerator> {
                   ),
 
                   ListView.builder(physics: BouncingScrollPhysics(), shrinkWrap: true,itemBuilder: (context, index) {
-                    return dataEntry(product[index].productName!,product[index].productPrice!,product[index].productQty!,"18",product[index].productAmount!);
+                    return dataEntry(tx.prList![index].productName!,tx.prList![index].productPrice!,tx.prList![index].productQty!,"18",tx.prList![index].productAmount!);
                   },
-                    itemCount: product.length,
+                    itemCount: tx.prList?.length,
                   ),
 
                   Text("--------------------------------------------------------------------------"),
 
                   SizedBox(height: 20,),
 
-                  Container(child: Text("10",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
+                  Container(child: Text("${tx.totalQ}",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
-                  Container(child: Text("Total Amount : 58000/-",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
+                  Container(child: Text("Total Amount : ${tx.totalAmount}/-",style: TextStyle(fontSize: 12)),color: Colors.grey,padding: EdgeInsets.all(10)),
                   SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

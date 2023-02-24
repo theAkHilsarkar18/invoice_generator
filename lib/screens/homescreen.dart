@@ -164,7 +164,7 @@ class _HomescreenState extends State<Homescreen> {
                                           fq = fq + int.parse(txtQty.text);
                                           //print(fq);
                                           int i = 0;
-                                         InvoiceModle i1 = InvoiceModle(productName: name,productPrice: price,productQty: q,productAmount:amount,finalQty: fq.toString(),);
+                                         InvoiceModle i1 = InvoiceModle(productName: name,productPrice: price,productQty: q,productAmount:amount,);
                                          productList.add(i1);
                                          Navigator.pop(context);
                                        });
@@ -180,8 +180,16 @@ class _HomescreenState extends State<Homescreen> {
 
 
                       InkWell(onTap: () {
+                        int sumQ = 0;
+                        double  sumA= 0;
                         setState(() {
-                          Navigator.pushNamed(context, 'invoice',arguments: productList);
+                          for(int i=0; i<productList.length; i++)
+                            {
+                              sumQ = sumQ + int.parse(productList[i].productQty!);
+                              sumA = sumA + double.parse(productList[i].productPrice!);
+                            }
+                          totalModel t1 = totalModel(prList: productList,totalQ: sumQ,totalAmount: sumA);
+                          Navigator.pushNamed(context, 'invoice',arguments: t1);
                         });
                       },child: customButtonForAddInvoiceGenerate()),
                     ],
@@ -204,7 +212,6 @@ class _HomescreenState extends State<Homescreen> {
       child: PopupMenuButton(
         offset: Offset(20,20),
         shape: OutlineInputBorder(borderSide: BorderSide(color: Colors.black,width: 1.5)),
-
         itemBuilder: (context) {
           return [
             PopupMenuItem(onTap: () {
@@ -219,7 +226,6 @@ class _HomescreenState extends State<Homescreen> {
                        style: TextStyle(letterSpacing: 2),
                        controller: txtProduct,
                        decoration: InputDecoration(
-                         hintText: "Shervani",
                          labelText: "Product Name",
                          labelStyle:
                          TextStyle(color: Colors.black),
